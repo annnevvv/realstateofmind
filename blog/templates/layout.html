@@ -1,0 +1,30 @@
+{% load blog_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <header></header>
+
+    <main>
+        <div id="content">{% block content %}{% endblock content %}</div>
+
+        <div id="sidebar" style='color: blue; background-color: lightblue;'>
+            <h1>Blog</h1>
+            <p>{% number_of_all_published_posts %} Post on this blog</p>
+
+                <h3>Latest posts</h3>
+    {% show_latest_published_posts 3 %}
+
+        </div>
+    </main>
+
+    <footer></footer>
+    
+</body>
+</html>

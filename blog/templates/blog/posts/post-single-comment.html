@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}add comment{% endblock title %}
+
+{% block content %}
+
+    {% if comment  %}
+        <h1>Your commment has been added</h1>              
+        <p><a href="{{ post.get_absolute_url }}">Back to Post</a></p>
+
+    {% else %}
+        {% include 'blog/posts/form-post-comment.html'}
+                
+    {% endif %}
+
+    {% include "blog/posts/paginator.html" with page=page_obj %}
+
+{% endblock content %}

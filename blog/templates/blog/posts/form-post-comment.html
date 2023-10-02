@@ -1,0 +1,17 @@
+
+{% block content %}
+<div style="color: red;">
+
+     <h2>Add comment to post '{{ post.title }}'</h2>
+
+     <form action=" {% url 'blog:post-comment' post.id %}" method='post'>
+          {{ form.as_p }}
+          {% csrf_token %}
+          <p><input type="submit" value="'Add comment"></p>
+     </form>
+ </div>
+
+{% endblock content %}
+
+
+

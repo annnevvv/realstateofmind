@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Share Post '{{ post.title }}'{% endblock title %}
+
+{% block content %}
+
+    {% if sent %}
+         <h1>Sent = True </h1>
+         <h1>Email send succesfully!</h1>
+         <p>You send post '{{ post.title }}' pb.{{ post.publictiondate }} on adress {{ form.cleaned_data.recipient_email }}</p>
+         <p>{{ post.content|truncatewords:10 }}</p>
+
+    {% else %}
+        <h1>Else sent = False </h1>
+        <h1>Share post '{{ post.title }}' with your friends</h1>
+        <form method="post">jhhhj
+            {{ form.as_p }}
+            {% for field in form %}
+                {{ field.error }}
+                {{ filed.label_tag }}
+            {% csrf_token %}
+            {% endfor %}
+            <input type="submit" value="Sent">
+        </form>
+    {% endif %}          
+
+{% endblock content %}
+
+
+

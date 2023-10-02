@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% load blog_tags %}
+
+
+{% block title %}blooog{% endblock title %}
+
+{% block content %}
+
+    <h1>My blog</h1>
+
+    <div style="color: green;">
+        <h3>Latest posts</h3>
+        {% show_latest_published_posts 2 %}
+    </div>
+
+    <div style="color: green;">
+        <h3>Most commented posts</h3>
+        {% most_commented_published_posts as mmp %}
+        <ul>
+            {% for post in mmp %}
+                <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
+ 
+    </div>
+
+
+    {% if tag %}
+        <h2>Posty oznaczone tagiem {{ tag.name }} </h2>
+    {% endif %}
+    {% for post in posts %}
+        <a href="{{ post.get_absolute_url }}"><h4 style="background-color: lightgreen;">{{ post.title }}</h4></a>
+        {% if post.tags.all %}            
+        <p>Tags: #{{ post.tags.all|join:" #" }}</p>        
+    {% endif %}
+
+
+    <div>
+        <h2 style="color: red;">Post: '{{ post.title }}'</h2>
+            <p>Tagi:
+                {% for tag in post.tags.all %}
+                    <a href="{% url 'blog:all-posts-with-tag' tag.slug %}">
+                        <p>{{ tag.name }}</p>
+                    </a>
+                    {% if not forloop.last %}{% endif %}
+                {% endfor %}
+            </p>
+
+            <p>Published {{ post.publictiondate }}</p>
+            <p>{{ post.content|markdown|truncatewords_html:30 }}</p>
+                    
+        {% endfor %}
+    </div>
+
+    {% include "blog/posts/paginator.html" with page=posts %}
+
+{% endblock content %}
+
+
